@@ -1,0 +1,624 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>ÓRBITA</title>
+  <link rel="icon" type="image/png" href="logo.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+
+  <!-- Canvas para el campo de estrellas -->
+  <canvas id="stars" aria-hidden="true"></canvas>
+  
+  <!-- Elementos decorativos de fondo -->
+  <div class="deco-blob b1" aria-hidden="true"></div>
+  <div class="deco-blob b2" aria-hidden="true"></div>
+  <div class="deco-blob b3" aria-hidden="true"></div>
+
+  <!-- Overlay de confirmación -->
+  <div id="checkoutOverlay" class="checkout-overlay">
+    <div class="checkout-content">
+      <div class="checkout-icon">✨</div>
+      <h2>¡Gracias por tu pedido!</h2>
+      <p>Tu solicitud fue enviada correctamente.<br>Te contactaremos para confirmar los detalles.</p>
+      <button class="btn btn-outline" style="margin-top:20px;" onclick="document.getElementById('checkoutOverlay').classList.remove('show')">Cerrar</button>
+    </div>
+  </div>
+
+  <!-- Contenido principal -->
+  <div class="page">
+
+    <!-- ========== HEADER ========== -->
+    <header>
+      <div class="logo">
+        <span class="dot" aria-hidden="true"></span> 
+        ÓRBITA
+      </div>
+      <div class="nav-links">
+        <nav aria-label="Navegación principal">
+          <ul>
+            <li><a href="#coleccion">Catálogo</a></li>
+            <li><a href="#plantillas">Plantillas</a></li>
+            <li><a href="#recursos">Recursos</a></li>
+            <li><a href="#como-funciona">Proceso</a></li>
+            <li><a href="#faq">Preguntas</a></li>
+            <li><a href="#planes">Planes</a></li>
+          </ul>
+        </nav>
+        <a href="#planes" class="nav-cta">Solicitar invitación</a>
+      </div>
+    </header>
+
+    <!-- ========== HERO ========== -->
+    <section class="hero" aria-labelledby="hero-title">
+      <div class="hero-content">
+        <span class="eyebrow mono">Invitaciones digitales</span>
+        <h1 id="hero-title">Invitaciones con <span class="accent">presencia única</span></h1>
+        <p class="lede">Cada tarjeta combina animación, música y diseño personalizado. Compartí tu evento con un enlace elegante y funcional.</p>
+        <div class="hero-actions">
+          <a href="#coleccion" class="btn btn-primary">
+            <span>Ver catálogo</span>
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+          </a>
+          <a href="#plantillas" class="btn btn-outline">
+            <span>Explorar plantillas</span>
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+          </a>
+        </div>
+        <div class="hero-stats">
+          <div class="stat-item">
+            <strong class="stat-number" data-target="160">0</strong>
+            <span>diseños disponibles</span>
+          </div>
+          <div class="stat-item">
+            <strong class="stat-number" data-target="4.9" data-decimal="true">0</strong>
+            <span>valoración promedio</span>
+          </div>
+          <div class="stat-item">
+            <strong class="stat-number" data-target="12000" data-format="true">0</strong>
+            <span>invitaciones enviadas</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="hero-visual tilt-stage">
+        <div class="orbit-ring" aria-hidden="true">
+          <div class="orbit-particle"></div>
+          <div class="orbit-particle delay-1"></div>
+          <div class="orbit-particle delay-2"></div>
+        </div>
+        <div class="float-card-small" aria-hidden="true">
+          <div class="float-card-inner">
+            <span class="mono" style="font-size:8px;">Próximo evento</span>
+            <strong style="font-size:14px;">Celebración especial</strong>
+            <span style="font-size:10px;color:var(--ice);">18 jul · 20:00</span>
+          </div>
+        </div>
+        <div class="tilt-card hero-card" id="heroCard" role="img" aria-label="Vista previa de invitación">
+          <div class="foil"></div>
+          <div class="sheen"></div>
+          <div class="card-inner-top">
+            <span class="tilt-card-tag mono">Estás invitado</span>
+            <h3>Cumple de Mateo</h3>
+            <p class="product-desc">Te esperamos para celebrar juntos este día tan especial.</p>
+          </div>
+          <div class="card-glyph">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2"><circle cx="12" cy="12" r="4"/><path d="M12 2v4M12 18v4M2 12h4M18 12h4"/></svg>
+          </div>
+          <div class="card-price">15 <span>sept · 17:00 hs</span></div>
+        </div>
+      </div>
+
+      <div class="scroll-indicator" aria-hidden="true">
+        <div class="scroll-mouse">
+          <div class="scroll-wheel"></div>
+        </div>
+        <span class="mono">Desplazate para descubrir</span>
+      </div>
+    </section>
+
+    <!-- ========== PROCESO ========== -->
+    <section id="como-funciona" aria-labelledby="como-funciona-title">
+      <div class="section-head reveal">
+        <span class="eyebrow mono">Proceso</span>
+        <h2 id="como-funciona-title">Tres pasos para <span class="accent-text">tu invitación</span></h2>
+        <p>Sin complicaciones. Elegí el diseño, personalizá los datos y compartí el enlace.</p>
+      </div>
+      <div class="steps-grid">
+        <div class="step-card reveal" data-step="01">
+          <div class="step-icon">
+            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><path d="M12 2a15.3 15.3 0 014 10 15.3 15.3 0 01-4 10A15.3 15.3 0 018 12 15.3 15.3 0 0112 2z"/></svg>
+          </div>
+          <div class="step-num">01</div>
+          <h3>Elegí el diseño</h3>
+          <p>Explorá el catálogo por ocasión: cumpleaños, bautizos, bodas y más.</p>
+        </div>
+        <div class="step-card reveal" data-step="02">
+          <div class="step-icon">
+            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 113 3L7 19l-4 1 1-4L16.5 3.5z"/></svg>
+          </div>
+          <div class="step-num">02</div>
+          <h3>Personalizá los datos</h3>
+          <p>Agregá nombre, fecha, lugar y mensaje personal.</p>
+        </div>
+        <div class="step-card reveal" data-step="03">
+          <div class="step-icon">
+            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M22 2L11 13"/><path d="M22 2l-7 20-4-9-9-4 20-7z"/></svg>
+          </div>
+          <div class="step-num">03</div>
+          <h3>Compartí el enlace</h3>
+          <p>Envialo por WhatsApp o redes. Tus invitados podrán confirmar asistencia.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========== CATÁLOGO ========== -->
+    <section id="coleccion" aria-labelledby="catalogo-title">
+      <div class="deco-planet p-catalog" aria-hidden="true">
+        <svg viewBox="0 0 100 100">
+          <ellipse cx="50" cy="55" rx="46" ry="14" fill="none" stroke="#f2c14e" stroke-width="1.4" opacity="0.5" transform="rotate(-18 50 55)"/>
+          <circle cx="50" cy="50" r="24" fill="url(#pg1)"/>
+          <defs>
+            <radialGradient id="pg1" cx="35%" cy="30%" r="75%">
+              <stop offset="0%" stop-color="#e85a9c"/>
+              <stop offset="100%" stop-color="#231548"/>
+            </radialGradient>
+          </defs>
+        </svg>
+      </div>
+
+      <div class="section-head reveal">
+        <span class="eyebrow mono">Catálogo</span>
+        <h2 id="catalogo-title">Diseños para cada ocasión</h2>
+        <p>Animación, música y confirmación de asistencia. Cada diseño incluye personalización completa.</p>
+      </div>
+
+      <div class="filter-row reveal" role="tablist" aria-label="Filtrar catálogo">
+        <button class="filter-pill active" data-filter="todas" role="tab" aria-selected="true">Todas</button>
+        <button class="filter-pill" data-filter="cumpleanos" role="tab" aria-selected="false">🎂 Cumpleaños</button>
+        <button class="filter-pill" data-filter="bautizo" role="tab" aria-selected="false">🕊️ Bautizo</button>
+        <button class="filter-pill" data-filter="gamer" role="tab" aria-selected="false">🎮 Gamer</button>
+        <button class="filter-pill" data-filter="babyshower" role="tab" aria-selected="false">👶 Baby shower</button>
+        <button class="filter-pill" data-filter="xvboda" role="tab" aria-selected="false">💫 XV &amp; Boda</button>
+        <button class="filter-pill" data-filter="infantil" role="tab" aria-selected="false">🧸 Infantil</button>
+        <button class="filter-pill" data-filter="tematicas" role="tab" aria-selected="false">🎭 Temáticas</button>
+        <button class="filter-pill" data-filter="homenaje" role="tab" aria-selected="false">🕯️ Homenaje</button>
+      </div>
+
+      <div class="collection-grid tilt-stage" id="catalogGrid" role="list">
+        <!-- Producto 1 -->
+        <div class="tilt-card product-card" data-cat="cumpleanos" data-id="prod-01" role="listitem">
+          <div class="foil"></div><div class="sheen"></div>
+          <div class="card-inner-top">
+            <span class="tilt-card-tag mono">Cumpleaños</span>
+            <h3>Cumple Constelación</h3>
+            <p class="product-desc">Globos animados y cuenta regresiva. Incluye confirmación de asistencia.</p>
+            <div class="product-meta">
+              <span>3 animaciones</span>
+              <span>Música incluida</span>
+              <span>Entrega 24h</span>
+            </div>
+          </div>
+          <div class="product-footer">
+            <div class="card-price">$6</div>
+            <button class="add-btn" data-product="Cumple Constelación ($6)" aria-label="Añadir al carrito">+</button>
+          </div>
+        </div>
+
+        <!-- Producto 2 -->
+        <div class="tilt-card product-card" data-cat="bautizo" data-id="prod-02" role="listitem">
+          <div class="foil"></div><div class="sheen"></div>
+          <div class="card-inner-top">
+            <span class="tilt-card-tag mono">Bautizo</span>
+            <h3>Bautizo Estelar</h3>
+            <p class="product-desc">Diseño delicado con nubes y estrellas. Incluye versículo editable.</p>
+            <div class="product-meta">
+              <span>2 animaciones</span>
+              <span>Música sacra</span>
+              <span>Entrega 24h</span>
+            </div>
+          </div>
+          <div class="product-footer">
+            <div class="card-price">$7</div>
+            <button class="add-btn" data-product="Bautizo Estelar ($7)" aria-label="Añadir al carrito">+</button>
+          </div>
+        </div>
+
+        <!-- Producto 3 -->
+        <div class="tilt-card product-card" data-cat="gamer" data-id="prod-03" role="listitem">
+          <span class="badge mono">Popular</span>
+          <div class="foil"></div><div class="sheen"></div>
+          <div class="card-inner-top">
+            <span class="tilt-card-tag mono">Gamer</span>
+            <h3>Level Up Party</h3>
+            <p class="product-desc">Interfaz estilo videojuego con barra de vida y efectos de sonido.</p>
+            <div class="product-meta">
+              <span>4 animaciones</span>
+              <span>SFX incluidos</span>
+              <span>Entrega 24h</span>
+            </div>
+          </div>
+          <div class="product-footer">
+            <div class="card-price">$7</div>
+            <button class="add-btn" data-product="Level Up Party ($7)" aria-label="Añadir al carrito">+</button>
+          </div>
+        </div>
+
+        <!-- Producto 4 -->
+        <div class="tilt-card product-card" data-cat="babyshower" data-id="prod-04" role="listitem">
+          <div class="foil"></div><div class="sheen"></div>
+          <div class="card-inner-top">
+            <span class="tilt-card-tag mono">Baby shower</span>
+            <h3>Cometa Bebé</h3>
+            <p class="product-desc">Revelación de género con lista de regalos integrada.</p>
+            <div class="product-meta">
+              <span>2 animaciones</span>
+              <span>Canción de cuna</span>
+              <span>Entrega 24h</span>
+            </div>
+          </div>
+          <div class="product-footer">
+            <div class="card-price">$7</div>
+            <button class="add-btn" data-product="Cometa Bebé ($7)" aria-label="Añadir al carrito">+</button>
+          </div>
+        </div>
+
+        <!-- Producto 5 -->
+        <div class="tilt-card product-card" data-cat="xvboda" data-id="prod-05" role="listitem">
+          <div class="foil"></div><div class="sheen"></div>
+          <div class="card-inner-top">
+            <span class="tilt-card-tag mono">XV años</span>
+            <h3>Vals Galáctico</h3>
+            <p class="product-desc">Diseño elegante con galería de fotos y playlist personalizada.</p>
+            <div class="product-meta">
+              <span>5 animaciones</span>
+              <span>Vals personalizado</span>
+              <span>Entrega 48h</span>
+            </div>
+          </div>
+          <div class="product-footer">
+            <div class="card-price">$9</div>
+            <button class="add-btn" data-product="Vals Galáctico ($9)" aria-label="Añadir al carrito">+</button>
+          </div>
+        </div>
+
+        <!-- Producto 6 -->
+        <div class="tilt-card product-card" data-cat="xvboda" data-id="prod-06" role="listitem">
+          <span class="badge mono">Nuevo</span>
+          <div class="foil"></div><div class="sheen"></div>
+          <div class="card-inner-top">
+            <span class="tilt-card-tag mono">Boda</span>
+            <h3>Boda Aurora</h3>
+            <p class="product-desc">Aurora boreal animada con mapa del salón y mesa de regalos.</p>
+            <div class="product-meta">
+              <span>4 animaciones</span>
+              <span>Canción nupcial</span>
+              <span>Entrega 48h</span>
+            </div>
+          </div>
+          <div class="product-footer">
+            <div class="card-price">$10</div>
+            <button class="add-btn" data-product="Boda Aurora ($10)" aria-label="Añadir al carrito">+</button>
+          </div>
+        </div>
+
+        <!-- Producto 7 -->
+        <div class="tilt-card product-card" data-cat="infantil" data-id="prod-07" role="listitem">
+          <div class="foil"></div><div class="sheen"></div>
+          <div class="card-inner-top">
+            <span class="tilt-card-tag mono">Infantil</span>
+            <h3>Primer Añito</h3>
+            <p class="product-desc">Diseño tierno con cohete animado y espacio para la foto.</p>
+            <div class="product-meta">
+              <span>2 animaciones</span>
+              <span>Canción infantil</span>
+              <span>Entrega 24h</span>
+            </div>
+          </div>
+          <div class="product-footer">
+            <div class="card-price">$6</div>
+            <button class="add-btn" data-product="Primer Añito ($6)" aria-label="Añadir al carrito">+</button>
+          </div>
+        </div>
+
+        <!-- Producto 8 -->
+        <div class="tilt-card product-card" data-cat="infantil" data-id="prod-08" role="listitem">
+          <div class="foil"></div><div class="sheen"></div>
+          <div class="card-inner-top">
+            <span class="tilt-card-tag mono">Infantil</span>
+            <h3>Fiesta Espacial</h3>
+            <p class="product-desc">Astronautas animados con juego de trivia para los invitados.</p>
+            <div class="product-meta">
+              <span>3 animaciones</span>
+              <span>Efectos espaciales</span>
+              <span>Entrega 24h</span>
+            </div>
+          </div>
+          <div class="product-footer">
+            <div class="card-price">$6</div>
+            <button class="add-btn" data-product="Fiesta Espacial ($6)" aria-label="Añadir al carrito">+</button>
+          </div>
+        </div>
+
+        <!-- Producto 9 -->
+        <div class="tilt-card product-card" data-cat="tematicas" data-id="prod-09" role="listitem">
+          <div class="foil"></div><div class="sheen"></div>
+          <div class="card-inner-top">
+            <span class="tilt-card-tag mono">Graduación</span>
+            <h3>Graduación Estelar</h3>
+            <p class="product-desc">Birrete animado con galería de fotos de la promoción.</p>
+            <div class="product-meta">
+              <span>4 animaciones</span>
+              <span>Himno de graduación</span>
+              <span>Entrega 48h</span>
+            </div>
+          </div>
+          <div class="product-footer">
+            <div class="card-price">$7</div>
+            <button class="add-btn" data-product="Graduación Estelar ($7)" aria-label="Añadir al carrito">+</button>
+          </div>
+        </div>
+
+        <!-- Producto 10 -->
+        <div class="tilt-card product-card" data-cat="tematicas" data-id="prod-10" role="listitem">
+          <div class="foil"></div><div class="sheen"></div>
+          <div class="card-inner-top">
+            <span class="tilt-card-tag mono">Navidad</span>
+            <h3>Navidad Cósmica</h3>
+            <p class="product-desc">Nieve animada con villancico de fondo y datos de la cena.</p>
+            <div class="product-meta">
+              <span>3 animaciones</span>
+              <span>Villancicos</span>
+              <span>Entrega 24h</span>
+            </div>
+          </div>
+          <div class="product-footer">
+            <div class="card-price">$6</div>
+            <button class="add-btn" data-product="Navidad Cósmica ($6)" aria-label="Añadir al carrito">+</button>
+          </div>
+        </div>
+
+        <!-- Producto 11 -->
+        <div class="tilt-card product-card" data-cat="tematicas" data-id="prod-11" role="listitem">
+          <div class="foil"></div><div class="sheen"></div>
+          <div class="card-inner-top">
+            <span class="tilt-card-tag mono">Halloween</span>
+            <h3>Halloween Nebulosa</h3>
+            <p class="product-desc">Calabazas animadas con sonido ambiental y mapa incluido.</p>
+            <div class="product-meta">
+              <span>3 animaciones</span>
+              <span>Sonidos ambientales</span>
+              <span>Entrega 24h</span>
+            </div>
+          </div>
+          <div class="product-footer">
+            <div class="card-price">$6</div>
+            <button class="add-btn" data-product="Halloween Nebulosa ($6)" aria-label="Añadir al carrito">+</button>
+          </div>
+        </div>
+
+        <!-- Producto 12 -->
+        <div class="tilt-card product-card" data-cat="homenaje" data-id="prod-12" role="listitem">
+          <div class="foil"></div><div class="sheen"></div>
+          <div class="card-inner-top">
+            <span class="tilt-card-tag mono">Homenaje</span>
+            <h3>Vuelo Eterno</h3>
+            <p class="product-desc">Esquela digital con mensaje de despedida y galería de fotos.</p>
+            <div class="product-meta">
+              <span>1 animación</span>
+              <span>Música de fondo</span>
+              <span>Entrega 24h</span>
+            </div>
+          </div>
+          <div class="product-footer">
+            <div class="card-price">$8</div>
+            <button class="add-btn" data-product="Vuelo Eterno ($8)" aria-label="Añadir al carrito">+</button>
+          </div>
+        </div>
+
+        <p class="empty-state mono" id="emptyState" hidden>No hay diseños en esta categoría por el momento.</p>
+      </div>
+
+      <!-- Banner combo -->
+      <div class="combo-banner reveal">
+        <div class="combo-content">
+          <span class="tilt-card-tag mono">Paquete completo</span>
+          <h3>Pack multi-evento</h3>
+          <p class="product-desc">Incluye diseños para cumpleaños, bautizo, gamer, baby shower y XV años.</p>
+        </div>
+        <div class="combo-price">
+          <div class="card-price">$18</div>
+          <button class="btn btn-primary pulse-animation" data-product="Pack multi-evento ($18)">Añadir pack</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========== PLANTILLAS (FLIP) ========== -->
+    <section id="plantillas" aria-labelledby="plantillas-title">
+      <div class="section-head reveal">
+        <span class="eyebrow mono">Vista previa</span>
+        <h2 id="plantillas-title">Explorá cada <span class="accent-text">plantilla</span></h2>
+        <p>Pasá el cursor sobre cada tarjeta para ver el detalle de lo que incluye.</p>
+      </div>
+
+      <div class="preview-scroll">
+        <!-- Flip card 1 -->
+        <div class="flip-outer">
+          <div class="flip-stage">
+            <div class="flip-inner">
+              <div class="flip-face flip-front" style="background-image: url('img/template-cumple.jpg'); background-size: cover; background-position: center;">
+                <div class="flip-overlay"></div>
+                <span class="mono">01 · Cumpleaños</span>
+                <h4>Cumple Constelación</h4>
+              </div>
+              <div class="flip-face flip-back">
+                <div>
+                  <span class="mono">Contenido</span>
+                  <p>Globos animados, cuenta regresiva y confirmación de asistencia.</p>
+                </div>
+                <span class="mono">Enlace · WhatsApp · Redes</span>
+              </div>
+            </div>
+          </div>
+          <p class="flip-hint">Pasá el cursor para girar</p>
+        </div>
+
+        <!-- Flip card 2 -->
+        <div class="flip-outer">
+          <div class="flip-stage">
+            <div class="flip-inner">
+              <div class="flip-face flip-front" style="background-image: url('img/template-bautizo.jpg'); background-size: cover; background-position: center;">
+                <div class="flip-overlay"></div>
+                <span class="mono">02 · Bautizo</span>
+                <h4>Bautizo Estelar</h4>
+              </div>
+              <div class="flip-face flip-back">
+                <div>
+                  <span class="mono">Contenido</span>
+                  <p>Nubes suaves, versículo editable y mapa de la iglesia.</p>
+                </div>
+                <span class="mono">Enlace · WhatsApp · Redes</span>
+              </div>
+            </div>
+          </div>
+          <p class="flip-hint">Pasá el cursor para girar</p>
+        </div>
+
+        <!-- Flip card 3 -->
+        <div class="flip-outer">
+          <div class="flip-stage">
+            <div class="flip-inner">
+              <div class="flip-face flip-front" style="background-image: url('img/template-gamer.jpg'); background-size: cover; background-position: center;">
+                <div class="flip-overlay"></div>
+                <span class="mono">03 · Gamer</span>
+                <h4>Level Up Party</h4>
+              </div>
+              <div class="flip-face flip-back">
+                <div>
+                  <span class="mono">Contenido</span>
+                  <p>Barra de vida animada y efectos de sonido.</p>
+                </div>
+                <span class="mono">Enlace · WhatsApp · Redes</span>
+              </div>
+            </div>
+          </div>
+          <p class="flip-hint">Pasá el cursor para girar</p>
+        </div>
+
+        <!-- Flip card 4 -->
+        <div class="flip-outer">
+          <div class="flip-stage">
+            <div class="flip-inner">
+              <div class="flip-face flip-front" style="background-image: url('img/template-baby.jpg'); background-size: cover; background-position: center;">
+                <div class="flip-overlay"></div>
+                <span class="mono">04 · Baby shower</span>
+                <h4>Cometa Bebé</h4>
+              </div>
+              <div class="flip-face flip-back">
+                <div>
+                  <span class="mono">Contenido</span>
+                  <p>Revelación de género y lista de regalos.</p>
+                </div>
+                <span class="mono">Enlace · WhatsApp · Redes</span>
+              </div>
+            </div>
+          </div>
+          <p class="flip-hint">Pasá el cursor para girar</p>
+        </div>
+
+        <!-- Flip card 5 -->
+        <div class="flip-outer">
+          <div class="flip-stage">
+            <div class="flip-inner">
+              <div class="flip-face flip-front" style="background-image: url('img/template-xv.jpg'); background-size: cover; background-position: center;">
+                <div class="flip-overlay"></div>
+                <span class="mono">05 · XV años</span>
+                <h4>Vals Galáctico</h4>
+              </div>
+              <div class="flip-face flip-back">
+                <div>
+                  <span class="mono">Contenido</span>
+                  <p>Galería de fotos y playlist personalizada.</p>
+                </div>
+                <span class="mono">Enlace · WhatsApp · Redes</span>
+              </div>
+            </div>
+          </div>
+          <p class="flip-hint">Pasá el cursor para girar</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========== RECURSOS ========== -->
+    <section id="recursos" aria-labelledby="recursos-title">
+      <div class="section-head reveal">
+        <span class="eyebrow mono">Recursos</span>
+        <h2 id="recursos-title">Material <span class="accent-text">complementario</span></h2>
+        <p>Videos y gráficos listos para usar en tus invitaciones.</p>
+      </div>
+
+      <div class="recursos-grid">
+        <!-- Video 1 -->
+        <div class="recurso-card reveal">
+          <div class="recurso-icon">🎬</div>
+          <h3>Video Cumpleaños</h3>
+          <p>Clip animado para invitaciones de cumpleaños.</p>
+          <span class="recurso-badge mono">MP4 · 18 s</span>
+          <a href="imgs/gf.mp4" target="_blank" class="btn btn-outline">Ver video</a>
+        </div>
+
+        <!-- Video 2 -->
+        <div class="recurso-card reveal">
+          <div class="recurso-icon">🎬</div>
+          <h3>Video Messi</h3>
+          <p>Clip especial con momentos destacados.</p>
+          <span class="recurso-badge mono">MP4 · 32 s</span>
+          <a href="imgs/messi.mp4" target="_blank" class="btn btn-outline">Ver video</a>
+        </div>
+
+        <!-- Imagen -->
+        <div class="recurso-card reveal">
+          <div class="recurso-icon">🖼️</div>
+          <h3>Tarjeta de Cumpleaños</h3>
+          <p>Gráfico PNG listo para usar en tus diseños.</p>
+          <span class="recurso-badge mono">PNG · 1080p</span>
+          <a href="imgs/ms.png" target="_blank" class="btn btn-outline">Ver imagen</a>
+        </div>
+
+        <!-- Video 3 -->
+        <div class="recurso-card reveal">
+          <div class="recurso-icon">🎬</div>
+          <h3>Video de Samir</h3>
+          <p>Clip dedicado especialmente para Samir.</p>
+          <span class="recurso-badge mono">MP4 · 18 s</span>
+          <a href="imgs/Samir.mp4" target="_blank" class="btn btn-outline">Ver video</a>
+        </div>
+
+        <!-- Video 4 -->
+        <div class="recurso-card reveal">
+          <div class="recurso-icon">🎬</div>
+          <h3>Video de Sonic</h3>
+          <p>Clip estilo Sonic el Erizo.</p>
+          <span class="recurso-badge mono">MP4 · 21 s</span>
+          <a href="imgs/sonic.mp4" target="_blank" class="btn btn-outline">Ver video</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========== FAQ ========== -->
+    <section id="faq" aria-labelledby="faq-title">
+      <div class="section-head reveal">
+        <span class="eyebrow mono">Preguntas frecuentes</span>
+        <h2 id="faq-title">Información <span class="accent-text">útil</span></h2>
+      </div>
+      <div class="faq-grid">
+        <div class="faq-item reveal">
+          <h3>¿Cómo recibo la invitación?</h3>
+          <p>Te enviamos un enlace por WhatsApp para que lo compartas con tus invitados.</p>
+        </div>
+        <div class="faq-item reveal">
+          <
